@@ -79,19 +79,27 @@ const ProductCard = ({ product }) => {
         </Badge>
       )}
       
-      {/* Product Image */}
-      <Box bg={useColorModeValue("gray.50", "gray.900")} p={4} display="flex" justifyContent="center">
-        <Image 
-          src={product.image || "/placeholder.svg"} 
-          alt={product.name} 
-          w="100%" 
-          h="180px" 
-          objectFit="contain"
-          transition="transform 0.3s ease"
-          _hover={{ transform: 'scale(1.05)' }}
-        />
-      </Box>
-      
+{/* Product Image */}
+<Box 
+  bg={useColorModeValue("gray.50", "gray.900")} 
+  display="flex" 
+  justifyContent="center"
+  alignItems="center"
+  h="300px" 
+  w="100%" 
+  overflow="hidden" 
+  p={0} 
+>
+  <Image 
+    src={product.image || "/placeholder.svg"} 
+    alt={product.name} 
+    w="100%" 
+    h="100%" 
+    objectFit="cover" 
+    transition="transform 0.3s ease"
+    _hover={{ transform: 'scale(1.05)' }}
+  />
+</Box>
       {/* Product Info */}
       <Box p={4}>
         <Text fontWeight="bold" fontSize="lg" color={priceColor} mb={1}>
@@ -117,7 +125,7 @@ const ProductCard = ({ product }) => {
           </Flex>
         )}
         
-        <Text mt={3} noOfLines={2} fontSize="sm" color={descriptionColor} lineHeight="short">
+        <Text mt={3} noOfLines={2} fontSize="sm" color={descriptionColor} lineHeight="short" fontWeight={"semibold"} >
           {product.name}
         </Text>
         

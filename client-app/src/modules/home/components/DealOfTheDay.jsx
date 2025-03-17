@@ -81,18 +81,19 @@ const DealOfTheDay = () => {
             alignItems="center"
             bg={useColorModeValue("gray.50", "gray.700")}
             borderRadius="lg"
-            p={4}
+            overflow="hidden"
+            
           >
             <Image 
               src={dealProduct.image} 
               alt={dealProduct.name} 
-              maxH="100%"
-              maxW="100%" 
+              w="100%" 
+              h="100%"
               objectFit="cover"
-              border="lg"
+              borderRadius="lg" 
             />  
           </Box>
-          
+                    
           {/* Product Details */}
           <Box flex="1">
             <Stack spacing={4}>
