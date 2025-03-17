@@ -14,18 +14,18 @@ const BrandsCarousel = () => {
     const borderColor = useColorModeValue("gray.200", "gray.700");
 
     const brands = [
-        { id: 1, name: "Eco Friendly", logo: "/placeholder.svg?height=60&width=120&text=Brand+1" },
-        { id: 2, name: "Green Life", logo: "/placeholder.svg?height=60&width=120&text=Brand+2" },
-        { id: 3, name: "Terra Verde", logo: "/placeholder.svg?height=60&width=120&text=Brand+3" },
-        { id: 4, name: "Bio Market", logo: "/placeholder.svg?height=60&width=120&text=Brand+4" },
-        { id: 5, name: "Natural Way", logo: "/placeholder.svg?height=60&width=120&text=Brand+5" },
-        { id: 6, name: "Pure Earth", logo: "/placeholder.svg?height=60&width=120&text=Brand+6" },
+        { id: 1, name: "Colibri", logo: "/img/Brands/Colibri.svg" },
+        { id: 2, name: "MarketMia", logo: "/img/Brands/MarketMia.svg" },
+        { id: 3, name: "EcoClothes", logo: "/img/Brands/EcoClothes.svg" },
+        { id: 4, name: "Acequia", logo: "/img/Brands/Acequia.svg" },
+        { id: 5, name: "Eco Friendly", logo: "/img/Brands/EcoFriendly.svg" },
+        { id: 6, name: "Pure Earth", logo: "/img/Brands/DoggoKat.svg" },
     ];
 
     return (
         <Box mb={12} px={{ base: 4, md: 6 }} maxW="1400px" mx="auto">
             <Heading size="md" color={headingColor} mb={6} fontWeight="semibold">
-                Marcas Destacadas
+                Pymes Destacadas
             </Heading>
 
             <SimpleGrid
@@ -55,8 +55,8 @@ const BrandsCarousel = () => {
                         <Image
                             src={brand.logo}
                             alt={brand.name}
-                            maxH="60px"
-                            maxW="120px"
+                            maxH="120px"
+                            maxW="180px"
                             objectFit="contain"
                         />
                     </Flex>

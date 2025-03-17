@@ -6,7 +6,7 @@ import Categories from "../components/Categories"
 import FeaturedProducts from "../components/FeatureProducts"
 import DealOfTheDay from "../components/DealOfTheDay"
 import Promotions from "../components/Promotions"
-import BlogPosts from "../components/BlogPosts"
+import PromosBancoSimple from "../components/PromosBancoSimple"
 import BrandsCarousel from "../components/BrandsCarousel"
 import Footer from "../components/Footer"
 
@@ -20,9 +20,9 @@ const HomePage = () => {
       <Categories />
       <DealOfTheDay />
       <FeaturedProducts />
-    
+      <PromosBancoSimple />
       <Promotions />
-      <BlogPosts />
+    
       <Footer />
     </Box>
   )

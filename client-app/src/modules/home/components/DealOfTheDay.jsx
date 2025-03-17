@@ -36,7 +36,7 @@ const DealOfTheDay = () => {
     price: 34990,
     originalPrice: 49990,
     discount: 30,
-    image: "/placeholder.svg?height=250&width=250&text=Kit+Huerta+Urbana",
+    image: "/img/DealOfTheDay.jpg",
     sold: 157,
     total: 200,
     description: "Todo lo que necesitas para comenzar tu huerta urbana en casa. Incluye macetas biodegradables, tierra orgánica certificada, herramientas ecológicas y semillas de estación."
@@ -74,8 +74,8 @@ const DealOfTheDay = () => {
         >
           {/* Product Image */}
           <Box 
-            w={{ base: "full", md: "300px" }} 
-            h={{ base: "250px", md: "300px" }}
+            w={{ base: "full", md: "400px" }} 
+            h={{ base: "350px", md: "500px" }} 
             display="flex" 
             justifyContent="center" 
             alignItems="center"
@@ -86,9 +86,11 @@ const DealOfTheDay = () => {
             <Image 
               src={dealProduct.image} 
               alt={dealProduct.name} 
-              maxH="100%" 
-              objectFit="contain"
-            />
+              maxH="100%"
+              maxW="100%" 
+              objectFit="cover"
+              border="lg"
+            />  
           </Box>
           
           {/* Product Details */}

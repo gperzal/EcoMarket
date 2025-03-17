@@ -100,14 +100,14 @@ const PromoBanners = () => {
         <Promotion
           title="Productos Ecológicos"
           description="Descubre nuestra colección de artículos sostenibles y amigables con el medio ambiente."
-          image="/placeholder.svg?height=220&width=600&text=Eco+Friendly"
+          image="/img/FeatureProducts/2.jpg"
           buttonText="Explorar"
           reverse={false}
         />
         <Promotion
           title="Ofertas de la Semana"
           description="No te pierdas estos descuentos exclusivos por tiempo limitado en los mejores productos."
-          image="/placeholder.svg?height=220&width=600&text=Ofertas+Exclusivas"
+          image="/img/FeatureProducts/1.jpg"
           buttonText="Ver Ofertas"
           reverse={true}
         />
