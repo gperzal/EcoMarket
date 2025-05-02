@@ -1,0 +1,11 @@
+openapi: 3.1.1
+info:
+  title: EcoMarket API
+  version: "1.0.0"
+  description: Documentación de la API para los distintos módulos del sistema BancoSimple.
+
+paths: {}
+
+components: {}
+
+# Referencias a archivos externos

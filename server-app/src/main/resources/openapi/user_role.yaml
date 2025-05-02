@@ -1,0 +1,89 @@
+openapi: 3.0.3
+info:
+  title: API de Roles de Usuario - Ecomarket
+  description: Endpoints para gestionar la asignación de roles a usuarios
+  version: 1.0.0
+
+tags:
+  - name: UserRoles
+    description: Operaciones para asignar roles a usuarios
+
+paths:
+  /api/users/{userId}/roles:
+    post:
+      summary: Asignar rol a usuario
+      description: Asigna un rol específico a un usuario (solo admin)
+      tags: [UserRoles]
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRoleDTO'
+      responses:
+        '200':
+          description: Rol asignado exitosamente
+
+    get:
+      summary: Obtener roles de usuario
+      description: Lista todos los roles asignados a un usuario
+      tags: [UserRoles]
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Lista de roles del usuario
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoleDTO'
+
+  /api/users/{userId}/roles/{roleId}:
+    delete:
+      summary: Remover rol de usuario
+      description: Elimina la asignación de un rol a un usuario (solo admin)
+      tags: [UserRoles]
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: roleId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Rol removido exitosamente
+
+components:
+  schemas:
+    UserRoleDTO:
+      type: object
+      properties:
+        roleId:
+          type: integer
+          example: 2
+    RoleDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 2
+        name:
+          type: string
+          example: seller

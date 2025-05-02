@@ -1,0 +1,117 @@
+openapi: 3.0.3
+info:
+  title: API de Role - Ecomarket
+  description: Endpoints para la gestión de roles en el sistema Ecomarket
+  version: 1.0.0
+
+tags:
+  - name: Roles
+    description: Operaciones relacionadas con los roles del sistema
+
+paths:
+  /api/roles:
+    get:
+      summary: Obtener todos los roles
+      description: Retorna la lista de roles disponibles (admin, seller, buyer)
+      tags: [Roles]
+      responses:
+        '200':
+          description: Lista de roles obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoleDTO'
+
+    post:
+      summary: Crear nuevo rol
+      description: Endpoint restringido para crear nuevos roles (solo admin)
+      tags: [Roles]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoleDTO'
+      responses:
+        '201':
+          description: Rol creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleDTO'
+
+  /api/roles/{id}:
+    get:
+      summary: Obtener rol por ID
+      description: Obtiene los detalles de un rol específico
+      tags: [Roles]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            enum: [1, 2, 3]
+      responses:
+        '200':
+          description: Detalles del rol
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleDTO'
+
+    put:
+      summary: Actualizar rol
+      description: Actualiza la información de un rol (solo admin)
+      tags: [Roles]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoleDTO'
+      responses:
+        '200':
+          description: Rol actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleDTO'
+
+    delete:
+      summary: Eliminar rol
+      description: Elimina un rol del sistema (solo admin)
+      tags: [Roles]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Rol eliminado
+
+components:
+  schemas:
+    RoleDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 2
+        name:
+          type: string
+          enum: [admin, seller, buyer]
+          example: seller
+        description:
+          type: string
+          example: "Permite gestionar productos"

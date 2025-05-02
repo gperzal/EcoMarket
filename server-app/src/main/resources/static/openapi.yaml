@@ -1,0 +1,661 @@
+openapi: 3.1.1
+info:
+  title: EcoMarket API
+  version: 1.0.0
+  description: Documentación combinada de los módulos de la API
+paths:
+  /api/catalogs:
+    get:
+      tags:
+      - Catalogs
+      summary: Obtener todos los catálogos
+      responses:
+        '200':
+          description: Lista de catálogos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CatalogDTO'
+    post:
+      tags:
+      - Catalogs
+      summary: Crear un nuevo catálogo
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CatalogRequestDTO'
+      responses:
+        '201':
+          description: Catálogo creado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogDTO'
+  /catalogs/{id}:
+    get:
+      tags:
+      - Catalogs
+      summary: Obtener un catálogo por ID
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Catálogo encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogDTO'
+    put:
+      tags:
+      - Catalogs
+      summary: Actualizar un catálogo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CatalogRequestDTO'
+      responses:
+        '200':
+          description: Catálogo actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogDTO'
+    delete:
+      tags:
+      - Catalogs
+      summary: Eliminar un catálogo
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Eliminado correctamente
+  /catalogs/status/{statusId}:
+    get:
+      tags:
+      - Catalogs
+      summary: Obtener catálogos por statusId
+      parameters:
+      - name: statusId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Lista de catálogos por statusId
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CatalogDTO'
+  /catalogs/{id}/with-subcatalogs:
+    get:
+      tags:
+      - Catalogs
+      summary: Obtener un catálogo con subcatálogos
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Catálogo con subcatálogos
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogDTO'
+  /api/roles:
+    get:
+      summary: Obtener todos los roles
+      description: Retorna la lista de roles disponibles (admin, seller, buyer)
+      tags:
+      - Roles
+      responses:
+        '200':
+          description: Lista de roles obtenida exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoleDTO'
+    post:
+      summary: Crear nuevo rol
+      description: Endpoint restringido para crear nuevos roles (solo admin)
+      tags:
+      - Roles
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoleDTO'
+      responses:
+        '201':
+          description: Rol creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleDTO'
+  /api/roles/{id}:
+    get:
+      summary: Obtener rol por ID
+      description: Obtiene los detalles de un rol específico
+      tags:
+      - Roles
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          enum:
+          - 1
+          - 2
+          - 3
+      responses:
+        '200':
+          description: Detalles del rol
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleDTO'
+    put:
+      summary: Actualizar rol
+      description: Actualiza la información de un rol (solo admin)
+      tags:
+      - Roles
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoleDTO'
+      responses:
+        '200':
+          description: Rol actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleDTO'
+    delete:
+      summary: Eliminar rol
+      description: Elimina un rol del sistema (solo admin)
+      tags:
+      - Roles
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Rol eliminado
+  /api/subcatalogs:
+    get:
+      summary: Obtener todos los subcatálogos
+      tags:
+      - Subcatalogs
+      responses:
+        '200':
+          description: Lista de subcatálogos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubcatalogDTO'
+    post:
+      summary: Crear un nuevo subcatálogo
+      tags:
+      - Subcatalogs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubcatalogRequestDTO'
+      responses:
+        '201':
+          description: Subcatálogo creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubcatalogDTO'
+  /api/subcatalogs/{id}:
+    get:
+      summary: Obtener un subcatálogo por su ID
+      tags:
+      - Subcatalogs
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Subcatálogo encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubcatalogDTO'
+    put:
+      summary: Actualizar un subcatálogo por su ID
+      tags:
+      - Subcatalogs
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubcatalogRequestDTO'
+      responses:
+        '200':
+          description: Subcatálogo actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubcatalogDTO'
+    delete:
+      summary: Eliminar un subcatálogo por su ID
+      tags:
+      - Subcatalogs
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Subcatálogo eliminado exitosamente
+  /api/subcatalogs/catalog/{catalogId}:
+    get:
+      summary: Obtener subcatálogos por catalogId
+      tags:
+      - Subcatalogs
+      parameters:
+      - name: catalogId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Lista de subcatálogos filtrados por catálogo
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubcatalogDTO'
+  /api/subcatalogs/status/{statusId}:
+    get:
+      summary: Obtener subcatálogos por statusId
+      tags:
+      - Subcatalogs
+      parameters:
+      - name: statusId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Lista de subcatálogos filtrados por estado
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubcatalogDTO'
+  /api/subcatalogs/catalog/{catalogId}/status/{statusId}:
+    get:
+      summary: Obtener subcatálogos por catalogId y statusId
+      tags:
+      - Subcatalogs
+      parameters:
+      - name: catalogId
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: statusId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Lista de subcatálogos filtrados por catálogo y estado
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubcatalogDTO'
+  /api/users:
+    get:
+      summary: Obtener todos los usuarios
+      tags:
+      - Usuarios
+      responses:
+        '200':
+          description: Lista de usuarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDTO'
+    post:
+      summary: Crear nuevo usuario
+      tags:
+      - Usuarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDTO'
+      responses:
+        '200':
+          description: Usuario creado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+  /api/users/{id}:
+    get:
+      summary: Obtener usuario por ID
+      tags:
+      - Usuarios
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Usuario encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+    put:
+      summary: Actualizar usuario
+      tags:
+      - Usuarios
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDTO'
+      responses:
+        '200':
+          description: Usuario actualizado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+    delete:
+      summary: Eliminar usuario
+      tags:
+      - Usuarios
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Usuario eliminado correctamente
+  /api/users/{userId}/roles:
+    post:
+      summary: Asignar rol a usuario
+      description: Asigna un rol específico a un usuario (solo admin)
+      tags:
+      - UserRoles
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRoleDTO'
+      responses:
+        '200':
+          description: Rol asignado exitosamente
+    get:
+      summary: Obtener roles de usuario
+      description: Lista todos los roles asignados a un usuario
+      tags:
+      - UserRoles
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Lista de roles del usuario
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/RoleDTO'
+  /api/users/{userId}/roles/{roleId}:
+    delete:
+      summary: Remover rol de usuario
+      description: Elimina la asignación de un rol a un usuario (solo admin)
+      tags:
+      - UserRoles
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        schema:
+          type: integer
+      - name: roleId
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Rol removido exitosamente
+components:
+  schemas:
+    CatalogDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        imageUrl:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        statusId:
+          type: integer
+        subcatalogIds:
+          type: array
+          items:
+            type: integer
+    CatalogRequestDTO:
+      type: object
+      required:
+      - name
+      - description
+      - imageUrl
+      - statusId
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        imageUrl:
+          type: string
+        statusId:
+          type: integer
+    RoleDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 2
+        name:
+          type: string
+          example: seller
+    SubcatalogDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        imageUrl:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        statusId:
+          type: integer
+        catalogId:
+          type: integer
+    SubcatalogRequestDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        imageUrl:
+          type: string
+        statusId:
+          type: integer
+        catalogId:
+          type: integer
+      required:
+      - name
+      - statusId
+      - catalogId
+    UserDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        uuid:
+          type: string
+          example: 4c3a7d5e-87bc-4d01-bcd3-1b6ea2e0849a
+        firstName:
+          type: string
+          example: Juan
+        lastName:
+          type: string
+          example: Pérez
+        email:
+          type: string
+          example: juan.perez@example.com
+        phone:
+          type: string
+          example: '+56912345678'
+        documentType:
+          type: string
+          example: RUT
+        documentNumber:
+          type: string
+          example: 12.345.678-9
+        passwordHash:
+          type: string
+          example: $2a$10$...
+        birthDate:
+          type: string
+          format: date
+          example: '1990-05-15'
+        registrationDate:
+          type: string
+          format: date-time
+          example: '2024-04-01T14:30:00'
+        statusId:
+          type: integer
+          example: 1
+        roles:
+          type: array
+          items:
+            type: string
+          example:
+          - ADMIN
+          - CLIENT
+    UserRoleDTO:
+      type: object
+      properties:
+        roleId:
+          type: integer
+          example: 2

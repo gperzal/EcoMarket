@@ -1,0 +1,8 @@
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    configUrl: /v3/api-docs/swagger-config
+    url: /openapi.yaml
+  api-docs:
+    path: /v3/api-docs
+    enabled: true

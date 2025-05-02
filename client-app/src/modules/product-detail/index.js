@@ -1,0 +1,5 @@
+export { default as ProductDetailPage } from "./pages/ProductDetailPage"
+export { default as ImageGallery } from "./components/ImageGallery"
+export { default as ProductInfo } from "./components/ProductInfo"
+export { default as ProductTabs } from "./components/ProductTabs"
+export { default as SimilarProducts } from "./components/SimilarProducts"

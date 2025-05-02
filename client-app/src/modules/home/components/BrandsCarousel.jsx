@@ -10,7 +10,7 @@ import {
 
 const BrandsCarousel = () => {
     const headingColor = useColorModeValue("gray.800", "white");
-    const bgColor = useColorModeValue("white", "gray.800");
+    const bgColor = useColorModeValue("gray.50", "gray.700");
     const borderColor = useColorModeValue("gray.200", "gray.700");
 
     const brands = [

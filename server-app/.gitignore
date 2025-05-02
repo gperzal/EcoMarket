@@ -1,0 +1,67 @@
+### Maven ###
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar  # ¡Excepción! Este SÍ debe versionarse (ya lo tienes con !)
+
+### Logs ###
+logs/
+*.log
+*.log.*
+
+### Variables de entorno ###
+.env
+.env.local
+.env*.local
+
+### IDEs ###
+# IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Eclipse/STS
+.classpath
+.project
+.settings/
+.factorypath
+.springBeans
+.sts4-cache/
+.apt_generated
+
+# NetBeans
+/nbproject/private/
+/nbbuild/
+/nbdist/
+/.nb-gradle/
+build/  # Excluye general, pero permite los de src/ (ver abajo)
+
+# VS Code
+.vscode/
+
+### Archivos generados ###
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+hs_err_pid*
+
+### Excepciones importantes ###
+!**/src/main/**/target/  # Permite targets específicos (poco común)
+!**/src/test/**/target/
+!**/src/main/**/build/   # Para Gradle (si usas Maven, esto es opcional)
+!**/src/test/**/build/
+!.mvn/wrapper/maven-wrapper.jar  # Maven Wrapper (esencial)
+!.mvn/wrapper/maven-wrapper.properties  # ¡Asegúrate de incluir esto también!
+
+### Otros ###
+HELP.md  # Si es documentación genérica, se versiona. Si es autogenerado, no.

@@ -1,0 +1,206 @@
+openapi: 3.1.0
+info:
+  title: API de Subcatálogo - Ecomarket
+  description: Endpoints para la gestión de subcatálogos.
+  version: 1.0.0
+
+servers:
+  - url: https://api.ecomarket.com
+
+paths:
+  /api/subcatalogs:
+    get:
+      summary: Obtener todos los subcatálogos
+      tags:
+        - Subcatalogs
+      responses:
+        200:
+          description: Lista de subcatálogos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SubcatalogDTO"
+    post:
+      summary: Crear un nuevo subcatálogo
+      tags:
+        - Subcatalogs
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubcatalogRequestDTO"
+      responses:
+        201:
+          description: Subcatálogo creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SubcatalogDTO"
+
+  /api/subcatalogs/{id}:
+    get:
+      summary: Obtener un subcatálogo por su ID
+      tags:
+        - Subcatalogs
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Subcatálogo encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SubcatalogDTO"
+    put:
+      summary: Actualizar un subcatálogo por su ID
+      tags:
+        - Subcatalogs
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SubcatalogRequestDTO"
+      responses:
+        200:
+          description: Subcatálogo actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SubcatalogDTO"
+    delete:
+      summary: Eliminar un subcatálogo por su ID
+      tags:
+        - Subcatalogs
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        204:
+          description: Subcatálogo eliminado exitosamente
+
+  /api/subcatalogs/catalog/{catalogId}:
+    get:
+      summary: Obtener subcatálogos por catalogId
+      tags:
+        - Subcatalogs
+      parameters:
+        - name: catalogId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Lista de subcatálogos filtrados por catálogo
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SubcatalogDTO"
+
+  /api/subcatalogs/status/{statusId}:
+    get:
+      summary: Obtener subcatálogos por statusId
+      tags:
+        - Subcatalogs
+      parameters:
+        - name: statusId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Lista de subcatálogos filtrados por estado
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SubcatalogDTO"
+
+  /api/subcatalogs/catalog/{catalogId}/status/{statusId}:
+    get:
+      summary: Obtener subcatálogos por catalogId y statusId
+      tags:
+        - Subcatalogs
+      parameters:
+        - name: catalogId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: statusId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Lista de subcatálogos filtrados por catálogo y estado
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SubcatalogDTO"
+
+components:
+  schemas:
+    SubcatalogDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        imageUrl:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        statusId:
+          type: integer
+        catalogId:
+          type: integer
+
+    SubcatalogRequestDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        imageUrl:
+          type: string
+        statusId:
+          type: integer
+        catalogId:
+          type: integer
+      required:
+        - name
+        - statusId
+        - catalogId

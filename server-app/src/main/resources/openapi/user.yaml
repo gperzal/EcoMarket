@@ -1,0 +1,137 @@
+openapi: 3.1.1
+info:
+  title: User API - Ecomarket
+  version: 1.0.0
+  description: API para la gestión de usuarios en EcoMarket
+
+paths:
+  /api/users:
+    get:
+      summary: Obtener todos los usuarios
+      tags: [Usuarios]
+      responses:
+        '200':
+          description: Lista de usuarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDTO'
+    post:
+      summary: Crear nuevo usuario
+      tags: [Usuarios]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDTO'
+      responses:
+        '200':
+          description: Usuario creado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+
+  /api/users/{id}:
+    get:
+      summary: Obtener usuario por ID
+      tags: [Usuarios]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Usuario encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+    put:
+      summary: Actualizar usuario
+      tags: [Usuarios]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDTO'
+      responses:
+        '200':
+          description: Usuario actualizado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDTO'
+    delete:
+      summary: Eliminar usuario
+      tags: [Usuarios]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Usuario eliminado correctamente
+
+components:
+  schemas:
+    UserDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        uuid:
+          type: string
+          example: "4c3a7d5e-87bc-4d01-bcd3-1b6ea2e0849a"
+        firstName:
+          type: string
+          example: "Juan"
+        lastName:
+          type: string
+          example: "Pérez"
+        email:
+          type: string
+          example: "juan.perez@example.com"
+        phone:
+          type: string
+          example: "+56912345678"
+        documentType:
+          type: string
+          example: "RUT"
+        documentNumber:
+          type: string
+          example: "12.345.678-9"
+        passwordHash:
+          type: string
+          example: "$2a$10$..."
+        birthDate:
+          type: string
+          format: date
+          example: "1990-05-15"
+        registrationDate:
+          type: string
+          format: date-time
+          example: "2024-04-01T14:30:00"
+        statusId:
+          type: integer
+          example: 1
+        roles:
+          type: array
+          items:
+            type: string
+          example: ["ADMIN", "CLIENT"]
