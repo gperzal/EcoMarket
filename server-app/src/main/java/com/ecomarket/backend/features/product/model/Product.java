@@ -46,4 +46,9 @@ public class Product {
     private List<String> colors;
 
     private String warranty;
+
+
+    public String getMainImage() {
+        return images != null && !images.isEmpty() ? images.get(0) : null;
+    }
 }
