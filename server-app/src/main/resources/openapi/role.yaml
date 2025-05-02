@@ -1,13 +1,3 @@
-openapi: 3.0.3
-info:
-  title: API de Role - Ecomarket
-  description: Endpoints para la gestión de roles en el sistema Ecomarket
-  version: 1.0.0
-
-tags:
-  - name: Roles
-    description: Operaciones relacionadas con los roles del sistema
-
 paths:
   /api/roles:
     get:
