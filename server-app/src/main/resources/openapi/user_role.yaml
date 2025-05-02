@@ -1,13 +1,3 @@
-openapi: 3.0.3
-info:
-  title: API de Roles de Usuario - Ecomarket
-  description: Endpoints para gestionar la asignación de roles a usuarios
-  version: 1.0.0
-
-tags:
-  - name: UserRoles
-    description: Operaciones para asignar roles a usuarios
-
 paths:
   /api/users/{userId}/roles:
     post:

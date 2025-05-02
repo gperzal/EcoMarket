@@ -1,0 +1,252 @@
+paths:
+  /api/products:
+    get:
+      summary: Obtener catálogo de productos
+      tags: [Productos]
+      parameters:
+        - in: query
+          name: category
+          required: false
+          schema:
+            type: string
+          description: Categoría del producto
+        - in: query
+          name: subcategory
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          description: Lista de subcategorías para filtrar
+        - in: query
+          name: search
+          required: false
+          schema:
+            type: string
+          description: Texto para buscar en el nombre del producto
+        - in: query
+          name: minPrice
+          required: false
+          schema:
+            type: integer
+          description: Precio mínimo para filtrar
+        - in: query
+          name: maxPrice
+          required: false
+          schema:
+            type: integer
+          description: Precio máximo para filtrar
+        - in: query
+          name: freeShipping
+          required: false
+          schema:
+            type: boolean
+          description: Filtrar por envío gratuito
+        - in: query
+          name: sortBy
+          required: false
+          schema:
+            type: string
+            enum: [price_asc, price_desc, rating, newest]
+          description: Campo por el cual ordenar los resultados
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            default: 0
+          description: Número de página para la paginación
+      responses:
+        '200':
+          description: Lista de productos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductListDTO'
+
+  /api/products/{id}:
+    get:
+      summary: Obtener detalle de un producto
+      tags: [Productos]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID del producto
+      responses:
+        '200':
+          description: Detalle del producto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductDetailDTO'
+        '404':
+          description: Producto no encontrado
+
+  /api/products/{id}/similar:
+    get:
+      summary: Obtener productos similares
+      tags: [Productos]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            format: int64
+          description: ID del producto base
+      responses:
+        '200':
+          description: Lista de productos similares
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductListDTO'
+        '404':
+          description: Producto base no encontrado
+
+components:
+  schemas:
+    ProductListDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: "Smartphone Eco-X"
+        description:
+          type: string
+          example: "Smartphone con características ecológicas y alto rendimiento"
+        price:
+          type: integer
+          example: 149990
+        originalPrice:
+          type: integer
+          example: 199990
+        rating:
+          type: number
+          format: double
+          example: 4.8
+        reviews:
+          type: integer
+          example: 254
+        image:
+          type: string
+          example: "https://ecomarket.com/images/products/eco-x.jpg"
+        freeShipping:
+          type: boolean
+          example: true
+        stock:
+          type: integer
+          example: 100
+        seller:
+          type: string
+          example: "Juan Pérez"
+        category:
+          type: string
+          example: "Electrónicos"
+        subcategory:
+          type: string
+          example: "Smartphones"
+
+    ProductDetailDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: "Smartphone Eco-X"
+        description:
+          type: string
+          example: "Smartphone con características ecológicas y alto rendimiento"
+        price:
+          type: integer
+          example: 149990
+        originalPrice:
+          type: integer
+          example: 199990
+        rating:
+          type: number
+          format: double
+          example: 4.8
+        reviews:
+          type: integer
+          example: 254
+        images:
+          type: array
+          items:
+            type: string
+          example: ["https://ecomarket.com/images/products/eco-x-1.jpg", "https://ecomarket.com/images/products/eco-x-2.jpg"]
+        freeShipping:
+          type: boolean
+          example: true
+        stock:
+          type: integer
+          example: 100
+        seller:
+          $ref: '#/components/schemas/SellerDTO'
+        category:
+          type: string
+          example: "Electrónicos"
+        subcategory:
+          type: string
+          example: "Smartphones"
+        features:
+          type: array
+          items:
+            type: string
+          example: ["Batería de larga duración", "Materiales reciclados", "Bajo consumo energético"]
+        specifications:
+          type: object
+          additionalProperties:
+            type: string
+          example: {
+            "Marca": "Eco-Tech",
+            "Modelo": "X-2000",
+            "Sistema Operativo": "Android 13",
+            "Tamaño de pantalla": "6.5 pulgadas",
+            "Resolución": "2400 x 1080 px",
+            "Procesador": "Octa-core 2.8 GHz",
+            "Memoria RAM": "8 GB",
+            "Almacenamiento": "256 GB",
+            "Cámara principal": "48 MP + 12 MP + 8 MP",
+            "Cámara frontal": "32 MP",
+            "Batería": "5000 mAh",
+            "Dimensiones": "160.8 x 78.1 x 7.9 mm",
+            "Peso": "187 g"
+          }
+        colors:
+          type: array
+          items:
+            type: string
+          example: ["Negro", "Blanco", "Verde"]
+        warranty:
+          type: string
+          example: "1 año de garantía oficial"
+
+    SellerDTO:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Juan Pérez"
+        rating:
+          type: number
+          format: double
+          example: 4.9
+        sales:
+          type: integer
+          example: 1245
