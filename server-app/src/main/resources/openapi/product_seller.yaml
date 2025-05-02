@@ -1,0 +1,220 @@
+paths:
+  /api/seller/products:
+    get:
+      summary: Obtener productos del vendedor
+      description: Retorna todos los productos pertenecientes al vendedor autenticado
+      operationId: getMyProducts
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de productos del vendedor
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductSellerDTO'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+    
+    post:
+      summary: Crear un nuevo producto
+      description: Crea un nuevo producto para el vendedor autenticado
+      operationId: createProduct
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductSellerDTO'
+      responses:
+        '201':
+          description: Producto creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductSellerDTO'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+  
+  /api/seller/products/{id}:
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: ID del producto a modificar o eliminar
+        schema:
+          type: integer
+          format: int64
+    
+    put:
+      summary: Actualizar un producto existente
+      description: Actualiza la información de un producto perteneciente al vendedor autenticado
+      operationId: updateProduct
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductSellerDTO'
+      responses:
+        '200':
+          description: Producto actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductSellerDTO'
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+    
+    delete:
+      summary: Eliminar un producto
+      description: Elimina un producto perteneciente al vendedor autenticado
+      operationId: deleteProduct
+      security:
+        - bearerAuth: []
+      responses:
+        '204':
+          description: Producto eliminado exitosamente
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/ForbiddenError'
+        '404':
+          $ref: '#/components/responses/NotFoundError'
+
+components:
+  schemas:
+    ProductSellerDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Identificador único del producto
+          example: 12345
+        name:
+          type: string
+          description: Nombre del producto
+          example: "Lámpara Solar LED"
+        description:
+          type: string
+          description: Descripción detallada del producto
+          example: "Lámpara solar LED con sensor de movimiento, ideal para exteriores."
+        price:
+          type: integer
+          description: Precio actual del producto en centavos
+          example: 299900
+        originalPrice:
+          type: integer
+          description: Precio original del producto en centavos (para mostrar descuentos)
+          example: 349900
+        images:
+          type: array
+          items:
+            type: string
+          description: URLs de las imágenes del producto
+          example: ["https://ecomarket.com/images/lampara1.jpg", "https://ecomarket.com/images/lampara2.jpg"]
+        freeShipping:
+          type: boolean
+          description: Indica si el producto tiene envío gratuito
+          example: true
+        stock:
+          type: integer
+          description: Cantidad disponible en inventario
+          example: 50
+        category:
+          type: string
+          description: Categoría principal del producto
+          example: "Iluminación"
+        subcategory:
+          type: string
+          description: Subcategoría del producto
+          example: "Exterior"
+        features:
+          type: array
+          items:
+            type: string
+          description: Características destacadas del producto
+          example: ["Resistente al agua", "Batería recargable", "Sensor de movimiento"]
+        colors:
+          type: array
+          items:
+            type: string
+          description: Colores disponibles del producto
+          example: ["Negro", "Blanco", "Plateado"]
+        warranty:
+          type: string
+          description: Información sobre la garantía del producto
+          example: "12 meses de garantía del fabricante"
+      required:
+        - name
+        - description
+        - price
+        - stock
+        - category
+  
+  responses:
+    BadRequestError:
+      description: Solicitud incorrecta
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnauthorizedError:
+      description: No autenticado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ForbiddenError:
+      description: No autorizado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFoundError:
+      description: Recurso no encontrado
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  
+  schemas:
+    Error:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        status:
+          type: integer
+        error:
+          type: string
+        message:
+          type: string
+        path:
+          type: string
+  
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

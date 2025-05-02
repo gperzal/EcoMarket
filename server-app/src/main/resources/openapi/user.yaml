@@ -1,9 +1,3 @@
-openapi: 3.1.1
-info:
-  title: User API - Ecomarket
-  version: 1.0.0
-  description: API para la gestión de usuarios en EcoMarket
-
 paths:
   /api/users:
     get:
