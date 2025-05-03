@@ -1,0 +1,140 @@
+paths:
+  /api/cart:
+    get:
+      summary: Obtener el carrito del usuario autenticado
+      tags: [Carrito]
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Carrito del usuario
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartDTO'
+    delete:
+      summary: Vaciar el carrito del usuario autenticado
+      tags: [Carrito]
+      security:
+        - bearerAuth: []
+      responses:
+        '204':
+          description: Carrito vaciado correctamente
+
+  /api/cart/add:
+    post:
+      summary: Añadir producto al carrito
+      tags: [Carrito]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartItemRequest'
+      responses:
+        '200':
+          description: Producto añadido correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartDTO'
+
+  /api/cart/update:
+    patch:
+      summary: Actualizar cantidad de un producto en el carrito
+      tags: [Carrito]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartItemRequest'
+      responses:
+        '200':
+          description: Cantidad actualizada correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartDTO'
+
+  /api/cart/remove:
+    post:
+      summary: Eliminar producto del carrito
+      tags: [Carrito]
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartItemRequest'
+      responses:
+        '200':
+          description: Producto eliminado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartDTO'
+
+components:
+  schemas:
+    CartDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        userId:
+          type: integer
+          example: 3
+        lastUpdated:
+          type: string
+          format: date-time
+          example: "2024-04-15T10:30:25"
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CartItemDTO'
+
+    CartItemDTO:
+      type: object
+      properties:
+        productId:
+          type: integer
+          example: 12
+        productName:
+          type: string
+          example: "Bolsa Ecológica de Algodón"
+        price:
+          type: integer
+          example: 3990
+        quantity:
+          type: integer
+          example: 2
+        image:
+          type: string
+          example: "/images/products/eco-bag.jpg"
+
+    CartItemRequest:
+      type: object
+      required:
+        - productId
+        - quantity
+      properties:
+        productId:
+          type: integer
+          example: 12
+        quantity:
+          type: integer
+          example: 2
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
