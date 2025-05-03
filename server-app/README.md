@@ -15,10 +15,11 @@ com.ecomarket.backend
 ├── features              # Módulos del dominio, organizados por feature 
 │   ├── user
 │   ├── user_role
-│   └── role
-
-  
-
+│   ├── role
+│   ├── product_seller
+│   ├── product
+│   └── cart
+ 
 ```
 
 ---
